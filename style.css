@@ -1,0 +1,149 @@
+.block {
+  display: grid;
+  grid-template-rows: fit-content(0);
+}
+
+.video-container  {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  overflow: hidden;
+
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    background: #f005 linear-gradient(to right, #ff0000, #fdcf58);
+  }
+}
+
+.content {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  border: 1vw solid #000;
+  font-size: 11.7vw;
+  @media (min-width: 600px) {
+    font-size: 7.7vw;
+  }
+}
+
+.text {
+  flex-grow: 1;
+  color: #fff;
+  background: #000;
+  white-space: nowrap;
+  box-shadow: 0.1em 0 0 0 #000, -0.1em 0 0 0 #000;
+  z-index: 2;
+
+  .mask--mobile + & {
+    @media (min-width: 600px) {
+      box-shadow: 0.1em 0 0 0 #000;
+    }
+  }
+
+  & + .br + & {
+    &::before {
+      @media (min-width: 600px) {
+        content: "\00a0";
+        background: #000;
+      }
+    }
+  }
+
+  .br + & + & {
+    &::before {
+      content: "\00a0";
+      background: #000;
+
+      @media (min-width: 600px) {
+        display: none;
+      }
+    }
+  }
+
+  & + .mask--desktop + & {
+    &::before {
+      content: "\00a0";
+      background: #000;
+
+      @media (min-width: 600px) {
+        display: none;
+      }
+    }
+  }
+}
+
+.mask {
+  flex-grow: 9999;
+  border-top: 0.45em solid #000;
+  border-bottom: 0.22em solid #000;
+}
+
+.mask--mobile {
+  @media (min-width: 600px) {
+    flex-shrink: 1;
+    flex-grow: 0;
+    min-width: 1px;
+    width: auto;
+    height: auto;
+    border: none;
+  }
+
+  &::before {
+    @media (min-width: 600px) {
+      content: "\00a0";
+      background: #000;
+    }
+  }
+
+  .br + & {
+    min-width: 1px;
+
+    &::before {
+      @media (min-width: 600px) {
+        display: none;
+      }
+    }
+  }
+}
+
+.mask--desktop {
+  display: none;
+  @media (min-width: 600px) {
+    display: block;
+  }
+}
+
+.br {
+  display: block;
+  width: 100%;
+  height: 0;
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Merienda, sans-serif;
+  line-height: 1.2;
+  background: #000;
+}
+
+p {
+  color: #99721d;
+}
+
+a {
+  color: inherit;
+}
